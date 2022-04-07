@@ -21,7 +21,6 @@ use Illuminate\Support\Facades\Route;
 //     return $request->user();
 // });
 
-
 // Route::prefix('auth')->group(function () {
 //     Route::post('login',[AuthController::class,'login']);
 //     Route::post('user-login',[AuthController::class,'userLogin']);
