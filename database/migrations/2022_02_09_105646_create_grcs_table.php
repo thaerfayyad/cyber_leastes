@@ -14,7 +14,7 @@ class CreateGrcsTable extends Migration
     public function up()
     {
         Schema::create('grcs', function (Blueprint $table) {
-            $table->id();
+            $table->id()->from(1000);
             $table->string('title');
             $table->longText('description');
             $table->enum('pages', [1, 2, 3])->default(1);

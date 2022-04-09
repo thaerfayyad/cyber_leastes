@@ -16,8 +16,8 @@ class GrcController extends Controller
      */
     public function index()
     {
-        //
         $data = Grc::all();
+        
         return view('cms.grc.index', ['grcs' => $data]);
     }
 
@@ -55,7 +55,6 @@ class GrcController extends Controller
             $grc = new Grc();
             $grc->title = $request->input('title');
             $grc->pages = $request->input('pages');
-
             $grc->description = $request->input('description');
             $grc->video = $request->input('video');
 

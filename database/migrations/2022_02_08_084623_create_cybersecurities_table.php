@@ -17,8 +17,8 @@ class CreateCybersecuritiesTable extends Migration
             $table->id();
             $table->string('title');
             $table->longText('description');
-            $table->string('cover_img');
             $table->enum('pages', [1, 2, 3])->default(1);
+            $table->string('cover_img');
             $table->text('video')->nullable();
             $table->string('rating')->nullable();
             $table->timestamps();

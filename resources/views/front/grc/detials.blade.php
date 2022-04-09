@@ -26,7 +26,7 @@
                 <hr>
                 <div>
                     <h4 class="text-center">questions</h4>
-                    <form method="POST" action="{{ route('answer_to') }}">
+                    <form method="POST" action="{{ route('answer_to_GRC') }}">
                         @csrf
                     <div class="media-body">
                         @foreach ($questionss as $question)

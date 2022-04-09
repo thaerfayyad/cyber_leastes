@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Cybersecurity;
 use App\Models\Question;
+use App\Models\Grc;
 use App\Models\Video;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -29,9 +30,15 @@ class QuestionController extends Controller
      */
     public function create()
     {
-        $data = Cybersecurity::all();
+        $Cybersecurity = Cybersecurity::all();
+        $Grc           = Grc::all();
+
+        $Cybersecurity = collect($Cybersecurity);
+        $Grc           = collect($Grc);
+        $merged        = $Grc->merge($Cybersecurity);
+
         return view('cms.question.create',[
-            'items'=>$data,
+            'items'=>$merged,
         ]);
     }
 

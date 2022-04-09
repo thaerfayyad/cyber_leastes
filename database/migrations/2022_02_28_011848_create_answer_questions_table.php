@@ -18,7 +18,10 @@ class CreateAnswerQuestionsTable extends Migration
             $table->string('answer_id');
             $table->string('question_id');
             $table->string('user_id');
-            $table->string('level_id');
+            $table->string('level_id')->nullable();
+
+            $table->string('cybersecurity_id')->nullable();
+            $table->string('grc_id')->nullable();
             // $table->foreignId('answer_id')->constrained('questions')->cascadeOnDelete();
             // $table->foreignId('question_id')->constrained('questions')->cascadeOnDelete();
             $table->timestamps();

@@ -38,9 +38,9 @@
 
 
                           </a>
-                          <h1>{{ $item->id }}</h1>
+                          {{-- <h1>{{ $item->title }}</h1> --}}
                           @php
-                              $count = \App\Models\Rating::where('cybersecurity_id', $item->id)->latest()->first();
+                              $count = \App\Models\Rating::where('user_id', auth()->id())->where('cybersecurity_id', $item->id)->latest()->first();
                           @endphp
                           
                           @if ($count == null)
@@ -68,17 +68,17 @@
                                    @endfor --}}
                                    <p>{{ $item->description }}.</p>
                                    @php
-                                       $AnswerQuestionCount = App\Models\AnswerQuestion::where('level_id', $item->id)
+                                       $AnswerQuestionCount = App\Models\AnswerQuestion::where('cybersecurity_id', $item->id)
                                                                 ->where('user_id',auth()->id())->get();
 
                                             $totle = 0;
 
                                             if ($AnswerQuestionCount) {
 
-                                                $answers     = App\Models\AnswerQuestion::where('level_id',$item->id)->pluck('answer_id')->unique();
+                                                $answers     = App\Models\AnswerQuestion::where('cybersecurity_id',$item->id)->pluck('answer_id')->unique();
                                                 $answe_count = App\Models\Answer::whereIn('id', $answers)->where('answer_question_id',1)->count();
 
-                                                $question_id = App\Models\AnswerQuestion::where('level_id',$item->id)->pluck('question_id')->unique();
+                                                $question_id = App\Models\AnswerQuestion::where('cybersecurity_id',$item->id)->pluck('question_id')->unique();
                                                 $data_count = App\Models\Question::with('answers')->whereIn('id',$question_id)->count();
 
                                                 $totle = $data_count . '/' . $answe_count;

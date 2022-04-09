@@ -16,13 +16,13 @@
                             <h2>
                                 @switch($item->pages)
                                 @case(1)
-                                    {{ " Governance" }}
+                                    {{ "level one" }}
                                     @break
                             @case(2)
-                                {{ "Risk" }}
+                                {{ "level two" }}
                                 @break
                             @case(3)
-                                {{ "Complance" }}
+                                {{ "level three" }}
                                 @break
 
                                 @default
@@ -38,23 +38,23 @@
 
 
                           </a>
-                          <h1>{{ $item->id }}</h1>
+                          {{-- <h1>{{ $item->title }}</h1> --}}
                           @php
                               $count = \App\Models\Rating::where('cybersecurity_id', $item->id)->latest()->first();
                           @endphp
-
+                          
                           @if ($count == null)
 
                               @for ($i = 1; $i < 6; $i++)
-
+                                  
                                 <span class="fa fa-star" data-count="{{ $i }}" data-id="{{ $item->id }}" data-user-id="{{ auth()->id() }}"></span>
 
                               @endfor
-
+                              
                           @else
 
                               @for ($i = 1; $i < 6; $i++)
-
+                                  
                                 <span class="fa fa-star {{ $count->count >= $i ? 'checked' : '' }}" data-count="{{ $i }}" data-id="{{ $item->id }}" data-user-id="{{ auth()->id() }}"></span>
 
                               @endfor
@@ -68,17 +68,16 @@
                                    @endfor --}}
                                    <p>{{ $item->description }}.</p>
                                    @php
-                                       $AnswerQuestionCount = App\Models\AnswerQuestion::where('level_id', $item->id)
-                                                                ->where('user_id',auth()->id())->get();
-
+                                       $AnswerQuestionCount = App\Models\AnswerQuestion::where('grc_id', )
+                                                                ->where('user_id', auth()->id())->get();
                                             $totle = 0;
 
                                             if ($AnswerQuestionCount) {
 
-                                                $answers     = App\Models\AnswerQuestion::where('level_id',$item->id)->pluck('answer_id')->unique();
+                                                $answers     = App\Models\AnswerQuestion::where('grc_id',$item->id)->pluck('answer_id')->unique();
                                                 $answe_count = App\Models\Answer::whereIn('id', $answers)->where('answer_question_id',1)->count();
 
-                                                $question_id = App\Models\AnswerQuestion::where('level_id',$item->id)->pluck('question_id')->unique();
+                                                $question_id = App\Models\AnswerQuestion::where('grc_id',$item->id)->pluck('question_id')->unique();
                                                 $data_count = App\Models\Question::with('answers')->whereIn('id',$question_id)->count();
 
                                                 $totle = $data_count . '/' . $answe_count;
@@ -87,7 +86,7 @@
                                    @endphp
                                    <p>{{ auth()->user()->name }} : {{ $totle }}</p>
                                    @if ($totle == 0)
-                                   <a href="{{ route('cyberDetails',$item->id) }}" class="primary_btn"><span>View More</span></a>
+                                   <a href="{{ route('grcDetails',$item->id) }}" class="primary_btn"><span>View More</span></a>
                                    @else
                                    <p class="btn btn-success ">completed  </p>
                                    @endif

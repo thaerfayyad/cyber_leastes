@@ -22,6 +22,7 @@ use App\Http\Controllers\RolePermissionController;
 use App\Http\Controllers\SubcategoryController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\UserPermissionController;
+use App\Http\Controllers\NewGrcController;
 use Illuminate\Support\Facades\Route;
 use PhpParser\Node\Expr\FuncCall;
 
@@ -79,7 +80,11 @@ Route::post('/ratings',[FrontController::class, 'ratings'])->name('ratings');
 Route::get('/cybersecurity',[FrontController::class, 'cyberPages'])->name('cyberPages');
 Route::get('/cybersecurity/{id}/details',[FrontController::class, 'cyberDetails'])->name('cyberDetails');
 Route::post('/addComment',[FrontController::class, 'addComment'])->name('addComment');
-Route::get('grc',[FrontController::class, 'grcPages'])->name('grcPages');
+
+Route::get('grc',[NewGrcController::class, 'index'])->name('grcPages');
+Route::get('/grc/{id}/details',[NewGrcController::class, 'grcDetails'])->name('grcDetails');
+Route::post('answer_to_GRC',[NewGrcController::class, 'answer_to_GRC'])->name('answer_to_GRC');
+
 Route::get('certificate',[FrontController::class, 'certificate'])->name('certificate');
 Route::get('international',[FrontController::class, 'international'])->name('international');
 Route::get('ksa',[FrontController::class, 'ksa'])->name('ksa');

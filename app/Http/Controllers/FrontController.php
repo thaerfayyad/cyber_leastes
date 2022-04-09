@@ -31,7 +31,7 @@ class FrontController extends Controller
     {
         // return $request->all();
 
-        $data = AnswerQuestion::where('level_id',$request->iid)->first();
+        $data = AnswerQuestion::where('cybersecurity_id',$request->iid)->first();
 
         if (!$data) {
 
@@ -43,22 +43,24 @@ class FrontController extends Controller
                         'question_id' => $key,
                         'answer_id'   => $data,
                         'user_id'     => auth()->id(),
-                        'level_id'    => $request->iid,
+                        'cybersecurity_id'=> $request->iid,
                     ]);
                 }
+
+                return redirect()->route('cyberPages');
             }
         }
 
-        $level_id    = AnswerQuestion::latest()->first()->level_id;
-        $question_id = AnswerQuestion::where('level_id',$level_id)->pluck('question_id')->unique();
-        $answers     = AnswerQuestion::where('level_id',$level_id)->pluck('answer_id')->unique();
+        $cybersecurity_id    = AnswerQuestion::latest()->first()->cybersecurity_id;
+        $question_id = AnswerQuestion::where('cybersecurity_id',$cybersecurity_id)->pluck('question_id')->unique();
+        $answers     = AnswerQuestion::where('cybersecurity_id',$cybersecurity_id)->pluck('answer_id')->unique();
         $answe_count = Answer::whereIn('id', $answers)->where('answer_question_id',1)->count();
 
         $data = Question::with('answers')->whereIn('id',$question_id)->get();
 
         $data_count = Question::with('answers')->whereIn('id',$question_id)->count();
 
-        return view('front.cyberscurity.answer',[
+        return view('front.cyberscurity.index',[
             'items'=>$data,
             'data_count'=>$data_count,
             'answers'=>$answers,
@@ -85,7 +87,7 @@ class FrontController extends Controller
 
     public function cyberDetails($id)
     {
-        $AnswerQuestionCount = AnswerQuestion::where('level_id', $id)
+        $AnswerQuestionCount = AnswerQuestion::where('cybersecurity_id', $id)
                                              ->where('user_id', auth()->id())
                                              ->get();
 
